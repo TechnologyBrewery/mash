@@ -5,6 +5,7 @@ This core library will soon have additional projects that implement configurable
 
 # Krausening Configuration#
 A mediation.properties file is expected in your Krausening configuration.  It requires:
+
 * mediation-definition-location - the path to a json file containing your mediation configuration
 
 # Writing or Reusing Mediators #
@@ -25,6 +26,7 @@ public class LoggingMediator extends Mediator {
 ```  
 
 There are a few simple, but commonly used mediators included within this library:
+
 * PassThroughMediator - simply echos the inbound value when invoked
 * LoggingMediator - logs the inbound value at debug-level by echoing back the value when invoked
 
@@ -48,10 +50,11 @@ As previously mentioned, a key aspect to this approach is that mediators are not
 ```
 
 # Performing a Runtime Lookup #
-At runtime, you simply request a mediator by providing the input and output types for the mediation routine in question and the library will return you either an instance of your requested mediator or a PassThroughMediator, if no match is found.  The later option allows you to plug mediation into you logic without having to have a pre-defined mediation routine.  Should your current transformation assumptions change, you can then specify a new mediator via configuration.  This will be more impactful a the extensions of this library come online (e.g., jolt, XSLT) such that whole new mediation routines can be created and applied via relatively simple configuration changes. 
+At runtime, you simply request a mediator by providing the input and output types for the mediation routine in question.  The library will return you either an instance of your requested mediator or a PassThroughMediator, if no match is found.  The later option allows you to plug mediation into your logic without having to have a pre-defined mediation routine.  Should your current transformation assumptions change, you can then specify a new mediator via configuration.  This will be more impactful as the extensions of this library come online (e.g., jolt, XSLT) such that whole new mediation routines can be created and applied via relatively simple configuration changes. 
 ```
 #!java
-Mediator mediator = findMediator(inputType, outputType);
+MediationContext context = new MediationContext(inputType, outputType);
+Mediator mediator = instance.getMediator(context);
 outputValue = mediator.mediate(inputValue);
 ```
 
