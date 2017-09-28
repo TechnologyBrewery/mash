@@ -1,7 +1,7 @@
 # Data Mediation #
 This project provides an embeddable mediation component that supports data transformation needs.  The key benefit to the approach taken in this library is the ability to dynamically configure and look up mediation routines.  By adding inherent support for runtime lookups, this approach allows mediation to be stubbed in or dynamically changed WITHOUT the need for a new deployment.  This is especially useful in environments where there is a high (or at least slow) IA hurdle along the path to production.  It also can insulate your system from changes with integration partners by allowing you to quickly respond with a mediation configuration update that obviates the need to perform a release every time an integration partner makes an unexpected change to their data structure.
 
-This core library will soon have additional projects that implement configurable mediation options (e.g., Jolt, Velocity, XSLT).  You can always author custom mediation routines as well for hair cases that don't fit well with existing approaches.
+This core library will soon have additional projects that implement configurable mediation options (e.g., Jolt, Velocity, XSLT).  You can always author custom mediation routines as well for use cases that don't fit well with existing approaches.
 
 # Krausening Configuration#
 A mediation.properties file is expected in your Krausening configuration.  It requires:

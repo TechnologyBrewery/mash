@@ -12,7 +12,7 @@ public class LoggingMediator extends Mediator {
 
     @Override
     protected Object performMediation(Object input) {
-        LOGGER.debug(input.toString());
+        LOGGER.debug((input != null) ? input.toString() : "no data to mediate!");
         return input;
     }
 
