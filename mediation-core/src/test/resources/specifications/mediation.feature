@@ -5,7 +5,7 @@ Feature: Configure and Execute Mediation
       | inputType         | outputType         | className                                            |
       | json              | xml                | com.cpointeinc.mediation.example.StaticXmlMediator   |
       | json              | json               | com.cpointeinc.mediation.LoggingMediator             |
-      | ucore-v2          | ucore-v3           | com.cpointeinc.mediation.PassThroughMediator         |
+      | ucore-v2          | ucore-v3           | com.cpointeinc.mediation.LoggingMediator             |
       | ddms-v1           | ddms-v2            | com.cpointeinc.mediation.DoesNotExistMediator        |
       | mixed-case-string | lower-case-string  | com.cpointeinc.mediation.example.LowercaseMediator   |
       | anything          | never-gonna-happen | com.cpointeinc.mediation.example.ExceptionalMediator |
@@ -39,6 +39,7 @@ Feature: Configure and Execute Mediation
       | json              | json              | log this                          | log this                                      |
       | ucore-v2          | ucore-v3          | DO NOT CHANGE ME                  | DO NOT CHANGE ME                              |
       | mixed-case-string | lower-case-string | I LoVe mIxEd CAse                 | i love mixed case                             |
+      | no match          | reflective        | pass this through                 | pass this through                             |
 
   Scenario: Exception Handling
     When mediation is configured for runtime

@@ -10,59 +10,62 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Provides contextual information about a mediation that is to be performed.
  */
 public class MediationContext {
-	
-	/**
-	 * Default constructor.
-	 */
-	public MediationContext() {
-		
-	}
-	
-	/**
-	 * New mediation context.
-	 * @param inputType input type to represent
-	 * @param outputType output type to represent
-	 */
-	public MediationContext(String inputType, String outputType) {
-		this.inputType = inputType;
-		this.outputType = outputType;
-	}
 
-	@JsonProperty
-	private String inputType;
-	
-	@JsonProperty
-	private String outputType;
+    /**
+     * Default constructor.
+     */
+    public MediationContext() {
 
-	public String getInputType() {
-		return inputType;
-	}
+    }
 
-	public void setInputType(String inputType) {
-		this.inputType = inputType;
-	}
+    /**
+     * New mediation context.
+     * 
+     * @param inputType
+     *            input type to represent
+     * @param outputType
+     *            output type to represent
+     */
+    public MediationContext(String inputType, String outputType) {
+        this.inputType = inputType;
+        this.outputType = outputType;
+    }
 
-	public String getOutputType() {
-		return outputType;
-	}
+    @JsonProperty
+    private String inputType;
 
-	public void setOutputType(String outputType) {
-		this.outputType = outputType;
-	}
+    @JsonProperty
+    private String outputType;
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    public String getInputType() {
+        return inputType;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
-	}
+    public void setInputType(String inputType) {
+        this.inputType = inputType;
+    }
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
-	
+    public String getOutputType() {
+        return outputType;
+    }
+
+    public void setOutputType(String outputType) {
+        this.outputType = outputType;
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
 }
