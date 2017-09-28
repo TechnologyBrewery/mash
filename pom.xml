@@ -12,6 +12,7 @@
 
 	<modules>
 		<module>mediation-core</module>
+		<module>mediation-jolt</module>
 	</modules>
 
 	<properties>
