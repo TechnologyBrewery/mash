@@ -5,8 +5,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cucumber.api.java.en.Given;
@@ -20,14 +24,22 @@ public class MediationSteps {
     private Object outputValue;
 
     private MediationException encounteredException;
+    
+    private MediationConfiguration newConfiguration;
 
     @Given("^the following mediation configurations:$")
     public void the_following_mediation_configurations(List<MediationConfiguration> configs) throws Throwable {
-        assertNotNull("No mediation configurations found!", configs);
+        assertNotNull("No mediation configurations found!", configs);        
+        writeMediationConfiguration(configs, "cucumber-definitions.json");
 
+    }
+
+    private void writeMediationConfiguration(List<MediationConfiguration> configs, String filename)
+            throws IOException, JsonGenerationException, JsonMappingException {
+        
         File directory = new File("./target/mediation-definitions");
         directory.mkdirs();
-        File f = new File(directory, "cucumber-definitions.json");
+        File f = new File(directory, filename);
         if (!f.exists()) {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(f, configs);
@@ -35,11 +47,27 @@ public class MediationSteps {
 
         outputValue = null;
         encounteredException = null;
-
     }
+    
+    @Given("^a mediator with \"([^\"]*)\", \"([^\"]*)\", and \"([^\"]*)\"$")
+    public void a_mediator_with_and(String inputType, String outputType, String className) throws Throwable {
+        newConfiguration = new MediationConfiguration();
+        newConfiguration.setInputType(inputType);
+        newConfiguration.setOutputType(outputType);
+        newConfiguration.setClassName(className);
+    }
+
+    @Given("^the following properties:$")
+    public void the_following_properties(List<MediationProperty> properties) throws Throwable {
+        newConfiguration.setProperties(properties);    
+        List<MediationConfiguration> propertyAwareConfigurations = new ArrayList<>();
+        propertyAwareConfigurations.add(newConfiguration);
+        writeMediationConfiguration(propertyAwareConfigurations, "cucumber-definitions-with-properties.json");
+    }    
 
     @When("^mediation is configured for runtime$")
     public void mediation_is_configured_for_runtime() throws Throwable {
+        MediationManager.resetMediationManager();
         instance = MediationManager.getInstance();
     }
 

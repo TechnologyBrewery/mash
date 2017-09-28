@@ -1,5 +1,7 @@
 package com.cpointeinc.mediation;
 
+import java.util.Properties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +13,7 @@ public class LoggingMediator extends Mediator {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingMediator.class);
 
     @Override
-    protected Object performMediation(Object input) {
+    protected Object performMediation(Object input, Properties properties) {
         LOGGER.debug((input != null) ? input.toString() : "no data to mediate!");
         return input;
     }
