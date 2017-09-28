@@ -100,7 +100,7 @@ public class MediationManager {
             MediationConfiguration mediationConfiguration) {
         Class<? extends Mediator> priorInstance;
         MediationContext context;
-        Class<? extends Mediator> mediator;        
+        Class<? extends Mediator> mediator;
         try {
             mediator = (Class<? extends Mediator>) Class.forName(mediationConfiguration.getClassName());
             context = new MediationContext(mediationConfiguration.getInputType(),
@@ -110,9 +110,9 @@ public class MediationManager {
                 LOGGER.warn("Duplicate mediation definitions specified for " + mediationConfigurations);
 
             }
-            
+
             addMediatorProperties(mediationConfiguration, context);
-            
+
         } catch (ClassNotFoundException e) {
             LOGGER.warn("The specified class " + mediationConfiguration.getClassName()
                     + " was not found in the classpath!");
@@ -123,11 +123,11 @@ public class MediationManager {
         if (mediationConfiguration.getProperties() != null) {
             Properties mediatorProperties = new Properties();
             for (MediationProperty property : mediationConfiguration.getProperties()) {
-                mediatorProperties.put(property.getKey(), property.getValue());                
-                
+                mediatorProperties.put(property.getKey(), property.getValue());
+
             }
-            
-            mediationPropertyMap.put(context,  mediatorProperties);
+
+            mediationPropertyMap.put(context, mediatorProperties);
         }
     }
 
@@ -142,22 +142,29 @@ public class MediationManager {
      */
     public Mediator getMediator(MediationContext context) {
         Class<? extends Mediator> clazz = mediationOptionMap.get(context);
-            Mediator mediator = null;
-            if (clazz != null) {
-                try {
-                    mediator = clazz.newInstance();
-                    mediator.setProperties(mediationPropertyMap.get(context));
-                    
-                } catch (InstantiationException | IllegalAccessException e) {
-                    throw new MediationException("Could not create class " + clazz.getName(), e);
-                }                              
-            } 
+        Mediator mediator = null;
+        if (clazz != null) {
+            try {
+                mediator = clazz.newInstance();
+                mediator.setProperties(mediationPropertyMap.get(context));
 
-            return (mediator != null) ? mediator : defaultPassThroughMediator;
-            
+            } catch (InstantiationException | IllegalAccessException e) {
+                throw new MediationException("Could not create class " + clazz.getName(), e);
+            }
+        }
+
+        if (mediator == null) {
+            if (LOGGER.isWarnEnabled()) {
+                LOGGER.warn("Could not find mediator for " + context.getInputType() + ":" + context.getOutputType()
+                        + " - using PassThroughMediator instead!");
+            }
+            mediator = defaultPassThroughMediator;
+        }
+
+        return mediator;
 
     }
-    
+
     static void resetMediationManager() {
         instance = new MediationManager();
     }

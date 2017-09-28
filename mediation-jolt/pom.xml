@@ -8,29 +8,21 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>mediation-core</artifactId>
+	<artifactId>mediation-jolt</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Mediation Platform::Core</name>
+	<name>Mediation Platform::Jolt</name>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.2</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+	<properties>
+		<jolt.version>0.1.0</jolt.version>
+	</properties>
 
 	<dependencies>
+		<dependency>
+		    <groupId>com.cpointeinc.mediation</groupId>
+		    <artifactId>mediation-core</artifactId>
+		    <version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -40,25 +32,16 @@
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.bitbucket.askllc.krausening</groupId>
-			<artifactId>krausening</artifactId>
+		    <groupId>com.bazaarvoice.jolt</groupId>
+		    <artifactId>jolt-core</artifactId>
+		    <version>${jolt.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${jackson.version}</version>
+		    <groupId>com.bazaarvoice.jolt</groupId>
+		    <artifactId>json-utils</artifactId>
+		    <version>${jolt.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-
+				
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -73,6 +56,13 @@
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>com.cpointeinc.mediation</groupId>
+		    <artifactId>mediation-core</artifactId>
+		    <version>${project.version}</version>
+		    <type>test-jar</type>
+		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 
