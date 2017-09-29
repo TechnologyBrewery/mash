@@ -22,7 +22,12 @@ Feature: Configure and Execute Mediation - Jolt
     And the mediator is invoked for "foo-v3.json" and "foo-v4.json" values "does not matter"
     Then a graceful exception case is returned
     
-  Scenario: Simple jolt mediation performed
+  Scenario: Simple jolt mediation performed with string input
     When mediation is configured for runtime
     And the mediator is invoked for "jolt-simple.json" and "jolt-rating.json" without a range value
     Then the input is transformed to include two default range values
+    
+  Scenario: Simple jolt mediation performed with jackson input
+    When mediation is configured for runtime
+    And the mediator is invoked with Jackson objects for "jolt-simple.json" and "jolt-rating.json" without a range value
+    Then the input is transformed to include two default range values and returned as a Jackson object

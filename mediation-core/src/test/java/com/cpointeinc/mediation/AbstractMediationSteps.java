@@ -39,7 +39,7 @@ public abstract class AbstractMediationSteps {
         return mediator;
     }
 
-    protected void invokeMediator(String inputType, String outputType, String inputValue) {
+    protected void invokeMediator(String inputType, String outputType, Object inputValue) {
         Mediator mediator = findMediator(inputType, outputType);
         try {
             outputValue = mediator.mediate(inputValue);

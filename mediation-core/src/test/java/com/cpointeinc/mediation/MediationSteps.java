@@ -71,6 +71,9 @@ public class MediationSteps extends AbstractMediationSteps {
 
     @Then("^the input is transformed to \"([^\"]*)\"$")
     public void the_input_is_transformed_to(String expectedValue) throws Throwable {
+        if (encounteredException != null) {
+            throw encounteredException;
+        }
         assertEquals("Output value was not what was anticipated!", expectedValue, outputValue);
         assertNull("Should not have encountered a MediationException!", encounteredException);
     }
