@@ -11,7 +11,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Contains steps that are commonly used (still need to be called from an annotated step method to be used).
+ * Contains steps that are commonly used. These methods still need to be called from an annotated step method to be
+ * leveraged.
  */
 public abstract class AbstractMediationSteps {
 
@@ -43,7 +44,7 @@ public abstract class AbstractMediationSteps {
         Mediator mediator = findMediator(inputType, outputType);
         try {
             outputValue = mediator.mediate(inputValue);
-    
+
         } catch (MediationException e) {
             encounteredException = e;
         }

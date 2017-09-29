@@ -3,9 +3,9 @@ This project provides an embeddable mediation component that supports data trans
 
 This core library has the following sub-components:
 
-* **Jolt**: support for json mediation and can be completely configured via json schema files that define the transformantion rules from one json format to another
+* **Jolt**: support for json mediation.  This component solely driven via configured via json schema files that define the transformation rules from one json format to another
 
-It will soon have additional projects that implement configurable mediation options (e.g., Velocity, XSLT).  You can always author custom mediation routines as well for use cases that don't fit well with existing approaches.
+This project will soon have additional sub-components that implement additional configurable mediation options (e.g., Velocity, XSLT).  You can always author custom mediation routines as well for use cases that don't fit well with existing approaches.
 
 # Krausening Configuration#
 A mediation.properties file is expected in your Krausening configuration.  It requires:
@@ -71,4 +71,14 @@ If you have logging enabled at the debug level for com.cpointeinc.mediation, you
 26 Sep 2017 22:06:07 DEBUG MediationManager - Loading mediation configuration from ./target/mediation-definitions...
 26 Sep 2017 22:06:07  WARN MediationManager - The specified class com.cpointeinc.mediation.DoesNotExistMediator was not found in the classpath!
 26 Sep 2017 22:06:07 DEBUG MediationManager - Loaded mediation 5 configurations in 35ms
+```
+
+# Maven Configuration #
+```
+#!xml
+<dependency>
+    <groupId>com.cpointeinc.mediation</groupId>
+    <artifactId>mediation-core</artifactId>
+    <version>LATEST-MEDIATION-VERSION</version>
+</dependency>
 ```

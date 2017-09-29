@@ -13,8 +13,7 @@ import com.cpointeinc.mediation.Mediator;
 
 /**
  * A mediator that uses Jolt to transform json from one format to another.  This class supports two inbound data representations 
- * of json.  The first is a Jackson object.  The second is a String.  Anything else will result in an attempt to turn the object
- * into a json String.
+ * of json.  The first is a Jackson object.  The second is a String.
  */
 public class JoltMediator extends Mediator {
     
