@@ -45,3 +45,13 @@ Feature: Configure and Execute Mediation
     When mediation is configured for runtime
     And the mediator is invoked for "anything" and "never-gonna-happen" values "input theater"
     Then a graceful exception case is returned
+
+  Scenario: Configure mediation routine with properties
+    Given a mediator with "string", "string", and "com.cpointeinc.mediation.example.PropertyAwareMediator"
+    And the following properties:
+      | key       | value |
+      | propertyA | foo   |
+      | propertyB | bar   |
+    When mediation is configured for runtime
+    And the mediator is invoked for "string" and "string" values "SOMETHING"
+    Then the input is transformed to "foo-SOMETHING-bar"

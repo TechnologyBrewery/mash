@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.aeonbits.owner.KrauseningConfigFactory;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
@@ -28,6 +29,7 @@ public class MediationManager {
     private static MediationManager instance = new MediationManager();
 
     private Map<MediationContext, Class<? extends Mediator>> mediationOptionMap = new HashMap<>();
+    private Map<MediationContext, Properties> mediationPropertyMap = new HashMap<>();
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -108,9 +110,24 @@ public class MediationManager {
                 LOGGER.warn("Duplicate mediation definitions specified for " + mediationConfigurations);
 
             }
+
+            addMediatorProperties(mediationConfiguration, context);
+
         } catch (ClassNotFoundException e) {
             LOGGER.warn("The specified class " + mediationConfiguration.getClassName()
                     + " was not found in the classpath!");
+        }
+    }
+
+    private void addMediatorProperties(MediationConfiguration mediationConfiguration, MediationContext context) {
+        if (mediationConfiguration.getProperties() != null) {
+            Properties mediatorProperties = new Properties();
+            for (MediationProperty property : mediationConfiguration.getProperties()) {
+                mediatorProperties.put(property.getKey(), property.getValue());
+
+            }
+
+            mediationPropertyMap.put(context, mediatorProperties);
         }
     }
 
@@ -125,11 +142,31 @@ public class MediationManager {
      */
     public Mediator getMediator(MediationContext context) {
         Class<? extends Mediator> clazz = mediationOptionMap.get(context);
-        try {
-            return (clazz != null) ? clazz.newInstance() : defaultPassThroughMediator;
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new MediationException("Could not create class " + clazz.getName(), e);
+        Mediator mediator = null;
+        if (clazz != null) {
+            try {
+                mediator = clazz.newInstance();
+                mediator.setProperties(mediationPropertyMap.get(context));
+
+            } catch (InstantiationException | IllegalAccessException e) {
+                throw new MediationException("Could not create class " + clazz.getName(), e);
+            }
         }
+
+        if (mediator == null) {
+            if (LOGGER.isWarnEnabled()) {
+                LOGGER.warn("Could not find mediator for " + context.getInputType() + ":" + context.getOutputType()
+                        + " - using PassThroughMediator instead!");
+            }
+            mediator = defaultPassThroughMediator;
+        }
+
+        return mediator;
+
+    }
+
+    static void resetMediationManager() {
+        instance = new MediationManager();
     }
 
 }
