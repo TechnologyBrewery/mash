@@ -2,28 +2,22 @@ package com.cpointeinc.mediation.jolt;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.cpointeinc.mediation.AbstractMediationSteps;
 import com.cpointeinc.mediation.MediationConfiguration;
 import com.cpointeinc.mediation.MediationProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class JoltMediationSteps extends AbstractMediationSteps {
-    
-    private static final Logger LOGGER = LoggerFactory.getLogger(JoltMediationSteps.class);
     
     ObjectMapper objectMapper = new ObjectMapper();
     
@@ -68,6 +62,7 @@ public class JoltMediationSteps extends AbstractMediationSteps {
 
     @Then("^the input is transformed to include two default range values$")
     public void the_input_is_transformed_to_include_two_default_range_values() throws Throwable {
+    		ensureNoException();
         validateTransformedJson((String)outputValue);
     }
 
@@ -87,6 +82,7 @@ public class JoltMediationSteps extends AbstractMediationSteps {
 
     @Then("^the input is transformed to include two default range values and returned as a Jackson object$")
     public void the_input_is_transformed_to_include_two_default_range_values_and_returned_as_a_Jackson_object() throws Throwable {
+    		ensureNoException();
         String outputAsJson = objectMapper.writeValueAsString(outputValue);
         validateTransformedJson(outputAsJson);
     }    
