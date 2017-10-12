@@ -13,6 +13,7 @@
 	<modules>
 		<module>mediation-core</module>
 		<module>mediation-jolt</module>
+		<module>mediation-velocity</module>
 	</modules>
 
 	<properties>

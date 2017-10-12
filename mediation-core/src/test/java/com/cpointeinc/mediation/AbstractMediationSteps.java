@@ -1,10 +1,14 @@
 package com.cpointeinc.mediation;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -15,6 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * leveraged.
  */
 public abstract class AbstractMediationSteps {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractMediationSteps.class);
 
     protected MediationManager instance;
     protected Object outputValue;
@@ -49,5 +55,12 @@ public abstract class AbstractMediationSteps {
             encounteredException = e;
         }
     }
+
+	protected void ensureNoException() {
+		if (encounteredException != null) {
+			LOGGER.error("Unexpected exception:", encounteredException);
+			assertNull("Should NOT have encountered MediationException! ", encounteredException);
+		}
+	}
 
 }
