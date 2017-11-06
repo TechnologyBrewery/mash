@@ -2,16 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
-		<groupId>com.cpointeinc.mediation</groupId>
-		<artifactId>mediation-parent</artifactId>
+		<groupId>org.bitbucket.cpointe.mash</groupId>
+		<artifactId>mash-parent</artifactId>
 		<version>1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>mediation-jolt</artifactId>
+	<artifactId>mash-jolt</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Mediation Platform::Jolt</name>
+	<name>Mash::Jolt</name>
 
 	<properties>
 		<jolt.version>0.1.0</jolt.version>
@@ -19,8 +19,8 @@
 
 	<dependencies>
 		<dependency>
-		    <groupId>com.cpointeinc.mediation</groupId>
-		    <artifactId>mediation-core</artifactId>
+		    <groupId>org.bitbucket.cpointe.mash</groupId>
+		    <artifactId>mash-core</artifactId>
 		    <version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -58,8 +58,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>com.cpointeinc.mediation</groupId>
-		    <artifactId>mediation-core</artifactId>
+		    <groupId>org.bitbucket.cpointe.mash</groupId>
+		    <artifactId>mash-core</artifactId>
 		    <version>${project.version}</version>
 		    <type>test-jar</type>
 		    <scope>test</scope>

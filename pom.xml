@@ -3,22 +3,65 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.cpointeinc.mediation</groupId>
-	<artifactId>mediation-parent</artifactId>
+	<groupId>org.bitbucket.cpointe.mash</groupId>
+	<artifactId>mash-parent</artifactId>
 	<version>1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Mediation Platform</name>
+	<name>Mash Mediation Platform</name>
+
+	<description>In brewing, mashing passes raw ingredients through hot water to activate, hydrate, and convert 
+	them for fermentation. Mash, the open source project, takes raw data payloads and provides a generic mediation 
+	process to translate the payloads into a new output. This allows configuration-driven mediation to be plugged 
+	into your application, which is especially important when dealing with ad-hoc tweaks that need to occur to payloads
+	to add, remove, or alter them to conform to changing service payloads to/from other systems.</description>
+	<url>https://bitbucket.org/cpointe/mediation</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Ryan Ashcraft</name>
+			<email>ryan@cpointe-inc.com</email>
+			<organization>Counterpointe Solutions, Inc.</organization>
+			<organizationUrl>https://bitbucket.org/cpointe</organizationUrl>
+		</developer>
+		<developer>
+			<name>Eric Konieczny</name>
+			<email>ekonieczny@cpointe-inc.com</email>
+			<organization>Counterpointe Solutions, Inc.</organization>
+			<organizationUrl>https://bitbucket.org/cpointe</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git@bitbucket.org:cpointe/mediation.git</connection>
+		<developerConnection>scm:git:git@bitbucket.org:cpointe/mediation.git</developerConnection>
+		<url>https://bitbucket.org/cpointe/mediation.git</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<modules>
-		<module>mediation-core</module>
-		<module>mediation-jolt</module>
-		<module>mediation-velocity</module>
+		<module>mash-core</module>
+		<module>mash-jolt</module>
+		<module>mash-velocity</module>
 	</modules>
 
 	<properties>
 		<cucumber.version>1.2.5</cucumber.version>
-		<fermenter.version>1-SNAPSHOT</fermenter.version>
 		<jackson.version>2.9.0</jackson.version>
 		<krausening.version>5</krausening.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -26,37 +69,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j.version>1.7.24</slf4j.version>
 	</properties>
-	
-    <scm>
-        <connection>scm:git:git@bitbucket.org:cpointe/mediation.git</connection>
-        <developerConnection>scm:git:git@bitbucket.org:cpointe/mediation.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-    <repositories>
-        <repository>
-            <id>nexus.aws.cpointe-inc.com</id>
-            <url>https://nexus.aws.cpointe-inc.com/repository/cpointe-maven2/</url>
-        </repository>
-    </repositories>
-    
-    <pluginRepositories>
-        <pluginRepository>
-            <id>nexus.aws.cpointe-inc.com</id>
-            <url>https://nexus.aws.cpointe-inc.com/repository/cpointe-maven2/</url>
-        </pluginRepository>
-    </pluginRepositories>
-    <distributionManagement>
-		<repository>
-			<id>nexus.aws.cpointe-inc.com</id>
-			<name>nexus.aws.cpointe-inc.com-releases</name>
-			<url>https://nexus.aws.cpointe-inc.com/repository/cpointe-maven2/</url>
-		</repository>
-		<snapshotRepository>
-			<id>nexus.aws.cpointe-inc.com</id>
-			<name>nexus.aws.cpointe-inc.com-snapshots</name>
-			<url>https://nexus.aws.cpointe-inc.com/repository/cpointe-maven2/</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<dependencyManagement>
 		<dependencies>
@@ -144,7 +156,79 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<useReleaseProfile>false</useReleaseProfile>
+					<releaseProfiles>ossrh-release</releaseProfiles>
+					<goals>deploy</goals>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.8</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>ossrh-release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.4</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.10.3</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
