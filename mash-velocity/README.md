@@ -15,7 +15,7 @@ Additionally, if you want to validate that the input type is of a specified clas
 [{
 	"inputType": "Foo.class",
 	"outputType": "foo-v1.xml",
-	"className": "com.cpointeinc.mediation.velocity.VelocityMediator",
+	"className": "org.bitbucket.cpointe.mash.velocity.VelocityMediator",
 	"properties": [{
 		"key": "velocity-template",
 		"value": "templates/to-xml.vm"
@@ -23,13 +23,13 @@ Additionally, if you want to validate that the input type is of a specified clas
 }, {
 	"inputType": "TestProperty",
 	"outputType": "foo-v1.json",
-	"className": "com.cpointeinc.mediation.velocity.VelocityMediator",
+	"className": "org.bitbucket.cpointe.mash.velocity.VelocityMediator",
 	"properties": [{
 		"key": "velocity-template",
 		"value": "templates/to-json.vm"
 	}, {
 		"key": "velocity-input-class",
-		"value": "com.cpointeinc.mediation.velocity.TestProperty"
+		"value": "org.bitbucket.cpointe.mash.velocity.TestProperty"
 	}]
 }}]
 ```
@@ -37,8 +37,8 @@ Additionally, if you want to validate that the input type is of a specified clas
 ```
 #!xml
 <dependency>
-    <groupId>com.cpointeinc.mediation</groupId>
-    <artifactId>mediation-velocity</artifactId>
-    <version>LATEST-MEDIATION-VERSION</version>
+    <groupId>org.bitbucket.cpointe.mash</groupId>
+    <artifactId>mash-velocity</artifactId>
+    <version>LATEST-MASH-VERSION</version>
 </dependency>
 ```

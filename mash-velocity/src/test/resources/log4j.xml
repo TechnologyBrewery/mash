@@ -9,7 +9,7 @@
 		</layout>
 	</appender>
 	
-	<category name="com.cpointeinc">
+	<category name="org.bitbucket.cpointe.mash">
 		<priority value="DEBUG" />
 	</category>
 

@@ -1,4 +1,4 @@
-# Jolt Data Mediation #
+# Mash Jolt Data Mediation #
 Wraps [Jolt](https://github.com/bazaarvoice/jolt) to provide a configuration-driven json mediation capability.  
 
 This builds off the general configuration, with the following differences:
@@ -13,7 +13,7 @@ As previously mentioned, a key aspect to this approach is that mediators are not
 [{
 	"inputType": "xyz-json-v1",
 	"outputType": "abc-json-v5",
-	"className": "com.cpointeinc.mediation.jolt.JoltMediator"
+	"className": "org.bitbucket.cpointe.mash.jolt.JoltMediator"
 	"properties":[
 		{
 			"key":"jolt-specification",
@@ -23,7 +23,7 @@ As previously mentioned, a key aspect to this approach is that mediators are not
 }, {
 	"inputType": "geopoint-json-v20",
 	"outputType": "esri-json-v3",
-	"className": "com.cpointeinc.mediation.jolt.JoltMediator"
+	"className": "org.bitbucket.cpointe.mash.jolt.JoltMediator"
 	"properties":[
 		{
 			"key":"jolt-specification",
@@ -36,8 +36,8 @@ As previously mentioned, a key aspect to this approach is that mediators are not
 ```
 #!xml
 <dependency>
-    <groupId>com.cpointeinc.mediation</groupId>
-    <artifactId>mediation-jolt</artifactId>
-    <version>LATEST-MEDIATION-VERSION</version>
+    <groupId>org.bitbucket.cpointe.mash</groupId>
+    <artifactId>mash-jolt</artifactId>
+    <version>LATEST-MASH-VERSION</version>
 </dependency>
 ```

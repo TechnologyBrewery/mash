@@ -2,13 +2,13 @@ Feature: Configure and Execute Mediation
 
   Background: 
     Given the following mediation configurations:
-      | inputType         | outputType         | className                                            |
-      | json              | xml                | com.cpointeinc.mediation.example.StaticXmlMediator   |
-      | json              | json               | com.cpointeinc.mediation.LoggingMediator             |
-      | ucore-v2          | ucore-v3           | com.cpointeinc.mediation.LoggingMediator             |
-      | ddms-v1           | ddms-v2            | com.cpointeinc.mediation.DoesNotExistMediator        |
-      | mixed-case-string | lower-case-string  | com.cpointeinc.mediation.example.LowercaseMediator   |
-      | anything          | never-gonna-happen | com.cpointeinc.mediation.example.ExceptionalMediator |
+      | inputType         | outputType         | className                                              |
+      | json              | xml                | org.bitbucket.cpointe.mash.example.StaticXmlMediator   |
+      | json              | json               | org.bitbucket.cpointe.mash.LoggingMediator             |
+      | ucore-v2          | ucore-v3           | org.bitbucket.cpointe.mash.LoggingMediator             |
+      | ddms-v1           | ddms-v2            | org.bitbucket.cpointe.mash.DoesNotExistMediator        |
+      | mixed-case-string | lower-case-string  | org.bitbucket.cpointe.mash.example.LowercaseMediator   |
+      | anything          | never-gonna-happen | org.bitbucket.cpointe.mash.example.ExceptionalMediator |
 
   Scenario Outline: Load multiple mediation routines
     When mediation is configured for runtime
@@ -47,7 +47,7 @@ Feature: Configure and Execute Mediation
     Then a graceful exception case is returned
 
   Scenario: Configure mediation routine with properties
-    Given a mediator with "string", "string", and "com.cpointeinc.mediation.example.PropertyAwareMediator"
+    Given a mediator with "string", "string", and "org.bitbucket.cpointe.mash.example.PropertyAwareMediator"
     And the following properties:
       | key       | value |
       | propertyA | foo   |

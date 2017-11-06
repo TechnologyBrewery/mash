@@ -1,11 +1,14 @@
-# Data Mediation #
+# Mash Data Mediation #
+In brewing, mashing passes raw ingredients through hot water to activate, hydrate, and convert them for fermentation. Mash, the open source project, takes raw data payloads and provides a generic mediation process to translate the payloads into a new output. This allows configuration-driven mediation to be plugged into your application, which is especially important when dealing with ad-hoc tweaks that need to occur to payloads to add, remove, or alter them to conform to changing service payloads to/from other systems.
+
 This project provides an embeddable mediation component that supports data transformation needs.  The key benefit to the approach taken in this library is the ability to dynamically configure and look up mediation routines.  By adding inherent support for runtime lookups, this approach allows mediation to be stubbed in or dynamically changed WITHOUT the need for a new deployment.  This is especially useful in environments where there is a high (or at least slow) IA hurdle along the path to production.  It also can insulate your system from changes with integration partners by allowing you to quickly respond with a mediation configuration update that obviates the need to perform a release every time an integration partner makes an unexpected change to their data structure.
 
 This core library has the following sub-components:
 
-* **Jolt**: support for json mediation.  This component solely driven via configured via json schema files that define the transformation rules from one json format to another
+* **Jolt**: support for json mediation.  This component solely driven via configured via json schema files that define the transformation rules from one json format to another.
+* **Velocity**: support for generic, template-driven mediation via the tried and true Velocity library.
 
-This project will soon have additional sub-components that implement additional configurable mediation options (e.g., Velocity, XSLT).  You can always author custom mediation routines as well for use cases that don't fit well with existing approaches.
+This project will soon have additional sub-components that implement additional configurable mediation options (e.g., XSLT).  You can always author custom mediation routines as well for use cases that don't fit well with existing approaches.
 
 # Krausening Configuration#
 A mediation.properties file is expected in your Krausening configuration.  It requires:
@@ -41,15 +44,15 @@ As previously mentioned, a key aspect to this approach is that mediators are not
 [{
 	"inputType": "json",
 	"outputType": "xml",
-	"className": "com.cpointeinc.mediation.example.StaticXmlMediator"
+	"className": "org.bitbucket.cpointe.mash.example.StaticXmlMediator"
 }, {
 	"inputType": "json",
 	"outputType": "json",
-	"className": "com.cpointeinc.mediation.LoggingMediator"
+	"className": "org.bitbucket.cpointe.mash.LoggingMediator"
 }, {
 	"inputType": "ucore-v2",
 	"outputType": "ucore-v3",
-	"className": "com.cpointeinc.mediation.LoggingMediator"
+	"className": "org.bitbucket.cpointe.mash.LoggingMediator"
 }]
 ```
 
@@ -65,11 +68,11 @@ outputValue = mediator.mediate(inputValue);
 # Error Handling #
 All exceptions encountered at runtime will be caught and wrapped in a runtime exception called MediationExeption.
 
-If you have logging enabled at the debug level for com.cpointeinc.mediation, you'll also get some potentially useful debugging info this component is bootstrapped:
+If you have logging enabled at the debug level for org.bitbucket.cpointe.mash, you'll also get some potentially useful debugging info this component is bootstrapped:
 ```
 #!bash
 26 Sep 2017 22:06:07 DEBUG MediationManager - Loading mediation configuration from ./target/mediation-definitions...
-26 Sep 2017 22:06:07  WARN MediationManager - The specified class com.cpointeinc.mediation.DoesNotExistMediator was not found in the classpath!
+26 Sep 2017 22:06:07  WARN MediationManager - The specified class org.bitbucket.cpointe.mash.DoesNotExistMediator was not found in the classpath!
 26 Sep 2017 22:06:07 DEBUG MediationManager - Loaded mediation 5 configurations in 35ms
 ```
 
@@ -77,8 +80,8 @@ If you have logging enabled at the debug level for com.cpointeinc.mediation, you
 ```
 #!xml
 <dependency>
-    <groupId>com.cpointeinc.mediation</groupId>
-    <artifactId>mediation-core</artifactId>
-    <version>LATEST-MEDIATION-VERSION</version>
+    <groupId>org.bitbucket.cpointe.mash</groupId>
+    <artifactId>mash-core</artifactId>
+    <version>LATEST-MASH-VERSION</version>
 </dependency>
 ```
