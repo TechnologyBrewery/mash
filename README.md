@@ -1,4 +1,8 @@
 # Mash Data Mediation #
+
+[![Maven Central](https://img.shields.io/maven-central/v/org.bitbucket.cpointe.mash/mash-parent.svg)](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.bitbucket.cpointe.mash%22%20AND%20a%3A%22mash-parent%22)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/mit)
+
 In brewing, mashing passes raw ingredients through hot water to activate, hydrate, and convert them for fermentation. Mash, the open source project, takes raw data payloads and provides a generic mediation process to translate the payloads into a new output. This allows configuration-driven mediation to be plugged into your application, which is especially important when dealing with ad-hoc tweaks that need to occur to payloads to add, remove, or alter them to conform to changing service payloads to/from other systems.
 
 This project provides an embeddable mediation component that supports data transformation needs.  The key benefit to the approach taken in this library is the ability to dynamically configure and look up mediation routines.  By adding inherent support for runtime lookups, this approach allows mediation to be stubbed in or dynamically changed WITHOUT the need for a new deployment.  This is especially useful in environments where there is a high (or at least slow) IA hurdle along the path to production.  It also can insulate your system from changes with integration partners by allowing you to quickly respond with a mediation configuration update that obviates the need to perform a release every time an integration partner makes an unexpected change to their data structure.
