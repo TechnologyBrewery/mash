@@ -12,7 +12,7 @@ Feature: Configure and Execute Mediation - Jolt
 
   Scenario: null input is provided to the mediator
     When mediation is configured for runtime
-    And the mediator is invoked for "Foo.class" and "foo-v1.json" a null value
+    And the mediator is invoked for input "Foo.class" and output "foo-v1.json" a null value
     Then the input is returned as null
 
   Scenario: Invalid velocity specification provided to the mediator

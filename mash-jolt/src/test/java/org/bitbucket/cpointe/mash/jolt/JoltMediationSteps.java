@@ -56,7 +56,7 @@ public class JoltMediationSteps extends AbstractMediationSteps {
         
     }    
 
-    @When("^the mediator is invoked for \"([^\"]*)\" and \"([^\"]*)\" without a range value$")
+    @When("^the mediator is invoked for input \"([^\"]*)\" and output \"([^\"]*)\" without a range value$")
     public void the_mediator_is_invoked_for_and_without_a_range_value(String inputType, String outputType) throws Throwable {
         invokeMediator(inputType, outputType, inputJson);
     }
