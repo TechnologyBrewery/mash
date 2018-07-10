@@ -2,13 +2,13 @@ Feature: Configure and Execute Mediation
 
   Background: 
     Given the following mediation configurations:
-      | inputType         | outputType         | className                                              |
-      | json              | xml                | org.bitbucket.cpointe.mash.example.StaticXmlMediator   |
-      | json              | json               | org.bitbucket.cpointe.mash.LoggingMediator             |
-      | ucore-v2          | ucore-v3           | org.bitbucket.cpointe.mash.LoggingMediator             |
-      | ddms-v1           | ddms-v2            | org.bitbucket.cpointe.mash.DoesNotExistMediator        |
-      | mixed-case-string | lower-case-string  | org.bitbucket.cpointe.mash.example.LowercaseMediator   |
-      | anything          | never-gonna-happen | org.bitbucket.cpointe.mash.example.ExceptionalMediator |
+      | inputType         | outputType         | className                                               |
+      | json              | xml                | org.bitbucket.cpointe.mash.example.StaticXmlMediator    |
+      | json              | json               | org.bitbucket.cpointe.mash.LoggingMediator              |
+      | ucore-v2          | ucore-v3           | org.bitbucket.cpointe.mash.LoggingMediator              |
+      | ddms-v1           | ddms-v2            | org.bitbucket.cpointe.mash.DoesNotExistMediator         |
+      | mixed-case-string | lower-case-string  | org.bitbucket.cpointe.mash.example.LowercaseMediator    |
+      | anything          | never-gonna-happen | org.bitbucket.cpointe.mash.example.ExceptionalMediator  |
 
   Scenario Outline: Load multiple mediation routines
     When mediation is configured for runtime
@@ -30,7 +30,7 @@ Feature: Configure and Execute Mediation
 
   Scenario Outline: Validate mediation execution
     When mediation is configured for runtime
-    And the mediator is invoked for "<inputType>" and "<outputType>" values "<inputValue>"
+    And the mediator is invoked for input "<inputType>" and output "<outputType>" values "<inputValue>"
     Then the input is transformed to "<outputValue>"
 
     Examples: 
@@ -43,7 +43,7 @@ Feature: Configure and Execute Mediation
 
   Scenario: Exception Handling
     When mediation is configured for runtime
-    And the mediator is invoked for "anything" and "never-gonna-happen" values "input theater"
+    And the mediator is invoked for input "anything" and output "never-gonna-happen" values "input theater"
     Then a graceful exception case is returned
 
   Scenario: Configure mediation routine with properties
@@ -53,5 +53,5 @@ Feature: Configure and Execute Mediation
       | propertyA | foo   |
       | propertyB | bar   |
     When mediation is configured for runtime
-    And the mediator is invoked for "string" and "string" values "SOMETHING"
+    And the mediator is invoked for input "string" and output "string" values "SOMETHING"
     Then the input is transformed to "foo-SOMETHING-bar"

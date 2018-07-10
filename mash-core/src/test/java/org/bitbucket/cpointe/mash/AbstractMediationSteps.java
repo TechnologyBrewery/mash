@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.bitbucket.cpointe.mash.MediationConfiguration;
 import org.bitbucket.cpointe.mash.MediationContext;
 import org.bitbucket.cpointe.mash.MediationException;
@@ -20,12 +21,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Contains steps that are commonly used. These methods still need to be called from an annotated step method to be
- * leveraged.
+ * Contains steps that are commonly used. These methods still need to be called
+ * from an annotated step method to be leveraged.
  */
 public abstract class AbstractMediationSteps {
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractMediationSteps.class);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractMediationSteps.class);
 
     protected MediationManager instance;
     protected Object outputValue;
@@ -37,10 +38,9 @@ public abstract class AbstractMediationSteps {
         File directory = new File("./target/mediation-definitions");
         directory.mkdirs();
         File f = new File(directory, filename);
-        if (!f.exists()) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(f, configs);
-        }
+        FileUtils.deleteQuietly(f);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(f, configs);
     }
 
     protected Mediator findMediator(String inputType, String outputType) {
@@ -53,6 +53,7 @@ public abstract class AbstractMediationSteps {
 
     protected void invokeMediator(String inputType, String outputType, Object inputValue) {
         Mediator mediator = findMediator(inputType, outputType);
+        LOGGER.info("Mediator found for input type {} and output type {}.", inputType, outputType);
         try {
             outputValue = mediator.mediate(inputValue);
 
@@ -61,11 +62,11 @@ public abstract class AbstractMediationSteps {
         }
     }
 
-	protected void ensureNoException() {
-		if (encounteredException != null) {
-			LOGGER.error("Unexpected exception:", encounteredException);
-			assertNull("Should NOT have encountered MediationException! ", encounteredException);
-		}
-	}
+    protected void ensureNoException() {
+        if (encounteredException != null) {
+            LOGGER.error("Unexpected exception:", encounteredException);
+            assertNull("Should NOT have encountered MediationException! ", encounteredException);
+        }
+    }
 
 }
