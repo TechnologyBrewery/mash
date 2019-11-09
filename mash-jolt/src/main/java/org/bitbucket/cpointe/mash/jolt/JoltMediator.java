@@ -7,6 +7,8 @@ import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.bitbucket.cpointe.mash.MediationException;
 import org.bitbucket.cpointe.mash.Mediator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.bazaarvoice.jolt.Chainr;
 import com.bazaarvoice.jolt.JsonUtils;
@@ -29,6 +31,8 @@ import com.bazaarvoice.jolt.JsonUtils;
  */
 public class JoltMediator extends Mediator {
 
+    private static final Logger logger = LoggerFactory.getLogger(JoltMediator.class);
+    
 	/**
 	 * The file path to the jolt-specification to be used in this mediator.
 	 */
@@ -89,6 +93,7 @@ public class JoltMediator extends Mediator {
 
 		// load jolt specification:
 		URL url = this.getClass().getClassLoader().getResource(joltSpecification);
+		logger.debug("Using jolt specification: {}", url.getPath());
 		List<Object> specAsJson = JsonUtils.filepathToList(url.getPath());
 		Chainr chainr = Chainr.fromSpec(specAsJson);
 		return chainr;
