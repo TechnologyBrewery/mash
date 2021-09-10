@@ -1,6 +1,9 @@
 package org.bitbucket.cpointe.mash.jolt;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
 
@@ -93,8 +96,16 @@ public class JoltMediator extends Mediator {
 
 		// load jolt specification:
 		URL url = this.getClass().getClassLoader().getResource(joltSpecification);
-		logger.debug("Using jolt specification: {}", url.getPath());
-		List<Object> specAsJson = JsonUtils.filepathToList(url.getPath());
+		
+		String decodedPath = null;
+		try {
+            decodedPath = URLDecoder.decode(url.getPath(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+		
+		logger.debug("Using jolt specification: {}", decodedPath);
+		List<Object> specAsJson = JsonUtils.filepathToList(decodedPath);
 		Chainr chainr = Chainr.fromSpec(specAsJson);
 		return chainr;
 	}
