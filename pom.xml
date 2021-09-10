@@ -14,7 +14,7 @@
 	process to translate the payloads into a new output. This allows configuration-driven mediation to be plugged 
 	into your application, which is especially important when dealing with ad-hoc tweaks that need to occur to payloads
 	to add, remove, or alter them to conform to changing service payloads to/from other systems.</description>
-    <url>https://bitbucket.org/cpointe/mediation</url>
+    <url>https://bitbucket.org/cpointe/mash</url>
 
     <licenses>
         <license>
@@ -40,9 +40,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@bitbucket.org:cpointe/mediation.git</connection>
-        <developerConnection>scm:git:git@bitbucket.org:cpointe/mediation.git</developerConnection>
-        <url>https://bitbucket.org/cpointe/mediation.git</url>
+        <connection>scm:git:git@bitbucket.org:cpointe/mash.git</connection>
+        <developerConnection>scm:git:git@bitbucket.org:cpointe/mash.git</developerConnection>
+        <url>https://bitbucket.org/cpointe/mash.git</url>
         <tag>HEAD</tag>
     </scm>
 
