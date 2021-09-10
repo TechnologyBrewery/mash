@@ -4,7 +4,7 @@
 
     <groupId>org.bitbucket.cpointe.mash</groupId>
     <artifactId>mash-parent</artifactId>
-    <version>3</version>
+    <version>4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Mash Mediation Platform</name>
@@ -43,7 +43,7 @@
         <connection>scm:git:git@bitbucket.org:cpointe/mash.git</connection>
         <developerConnection>scm:git:git@bitbucket.org:cpointe/mash.git</developerConnection>
         <url>https://bitbucket.org/cpointe/mash.git</url>
-        <tag>mash-parent-3</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
