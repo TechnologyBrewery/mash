@@ -3,10 +3,7 @@ package org.bitbucket.cpointe.mash;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 import org.aeonbits.owner.KrauseningConfigFactory;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
@@ -17,10 +14,10 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Contains all registered mediation options, performing lookups to find the appropriate mediation option for a given
- * input and output type combination.
+ * Singleton mediation manager for loading mediation configurations defined in
+ * the mediation definition location.
  */
-public class MediationManager {
+public class MediationManager extends BaseMediationManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MediationManager.class);
 
@@ -28,12 +25,7 @@ public class MediationManager {
 
     private static MediationManager instance = new MediationManager();
 
-    private Map<MediationContext, Class<? extends Mediator>> mediationOptionMap = new HashMap<>();
-    private Map<MediationContext, Properties> mediationPropertyMap = new HashMap<>();
-
     private ObjectMapper objectMapper = new ObjectMapper();
-
-    private static PassThroughMediator defaultPassThroughMediator = new PassThroughMediator();
 
     /**
      * Prevent instantiation of this singleton instance.
@@ -94,75 +86,6 @@ public class MediationManager {
                 }
             }
         }
-    }
-
-    private void validateAndAddMediator(List<MediationConfiguration> mediationConfigurations,
-            MediationConfiguration mediationConfiguration) {
-        Class<? extends Mediator> priorInstance;
-        MediationContext context;
-        Class<? extends Mediator> mediator;
-        try {
-            mediator = (Class<? extends Mediator>) Class.forName(mediationConfiguration.getClassName());
-            context = new MediationContext(mediationConfiguration.getInputType(),
-                    mediationConfiguration.getOutputType());
-            priorInstance = mediationOptionMap.put(context, mediator);
-            if (priorInstance != null) {
-                LOGGER.warn("Duplicate mediation definitions specified for " + mediationConfigurations);
-
-            }
-
-            addMediatorProperties(mediationConfiguration, context);
-
-        } catch (ClassNotFoundException e) {
-            LOGGER.warn("The specified class " + mediationConfiguration.getClassName()
-                    + " was not found in the classpath!");
-        }
-    }
-
-    private void addMediatorProperties(MediationConfiguration mediationConfiguration, MediationContext context) {
-        if (mediationConfiguration.getProperties() != null) {
-            Properties mediatorProperties = new Properties();
-            for (MediationProperty property : mediationConfiguration.getProperties()) {
-                mediatorProperties.put(property.getKey(), property.getValue());
-
-            }
-
-            mediationPropertyMap.put(context, mediatorProperties);
-        }
-    }
-
-    /**
-     * Returns an instance of the mediator that is mapped to the input type and output type within the passed
-     * {@link MediationContext}.This will return a pass-through (i.e., no-op) mediator if a match is not found so that
-     * users do not have to worry about checking for a valid mediator - they can just invoke it without worry.
-     * 
-     * @param context
-     *            context information against which the mediator lookup is performed
-     * @return instance of the {@link Mediator} or null, depending on the configuration
-     */
-    public Mediator getMediator(MediationContext context) {
-        Class<? extends Mediator> clazz = mediationOptionMap.get(context);
-        Mediator mediator = null;
-        if (clazz != null) {
-            try {
-                mediator = clazz.newInstance();
-                mediator.setProperties(mediationPropertyMap.get(context));
-
-            } catch (InstantiationException | IllegalAccessException e) {
-                throw new MediationException("Could not create class " + clazz.getName(), e);
-            }
-        }
-
-        if (mediator == null) {
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn("Could not find mediator for " + context.getInputType() + ":" + context.getOutputType()
-                        + " - using PassThroughMediator instead!");
-            }
-            mediator = defaultPassThroughMediator;
-        }
-
-        return mediator;
-
     }
 
     static void resetMediationManager() {
