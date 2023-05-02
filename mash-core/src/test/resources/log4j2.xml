@@ -6,7 +6,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="org.bitbucket.cpointe.mash" level="info" additivity="false">
+        <Logger name="org.technologybrewery.mash" level="info" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
         <Root level="debug">

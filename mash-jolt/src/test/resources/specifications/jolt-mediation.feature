@@ -3,9 +3,9 @@ Feature: Configure and Execute Mediation - Jolt
   Background: 
     Given the following mediation configurations with properties:
       | inputType        | outputType       | className                                    | joltSpecification      |
-      | foo-v1.json      | foo-v2.json      | org.bitbucket.cpointe.mash.jolt.JoltMediator | not-applicable.json    |
-      | foo-v3.json      | foo-v4.json      | org.bitbucket.cpointe.mash.jolt.JoltMediator |                        |
-      | jolt-simple.json | jolt-rating.json | org.bitbucket.cpointe.mash.jolt.JoltMediator | example-jolt-spec.json |
+      | foo-v1.json      | foo-v2.json      | org.technologybrewery.mash.jolt.JoltMediator | not-applicable.json    |
+      | foo-v3.json      | foo-v4.json      | org.technologybrewery.mash.jolt.JoltMediator |                        |
+      | jolt-simple.json | jolt-rating.json | org.technologybrewery.mash.jolt.JoltMediator | example-jolt-spec.json |
 
   Scenario: null input is provided to the mediator
     When mediation is configured for runtime

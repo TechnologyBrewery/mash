@@ -3,12 +3,12 @@ Feature: Configure and Execute Mediation
   Background: 
     Given the following mediation configurations:
       | inputType         | outputType         | className                                               |
-      | json              | xml                | org.bitbucket.cpointe.mash.example.StaticXmlMediator    |
-      | json              | json               | org.bitbucket.cpointe.mash.LoggingMediator              |
-      | ucore-v2          | ucore-v3           | org.bitbucket.cpointe.mash.LoggingMediator              |
-      | ddms-v1           | ddms-v2            | org.bitbucket.cpointe.mash.DoesNotExistMediator         |
-      | mixed-case-string | lower-case-string  | org.bitbucket.cpointe.mash.example.LowercaseMediator    |
-      | anything          | never-gonna-happen | org.bitbucket.cpointe.mash.example.ExceptionalMediator  |
+      | json              | xml                | org.technologybrewery.mash.example.StaticXmlMediator    |
+      | json              | json               | org.technologybrewery.mash.LoggingMediator              |
+      | ucore-v2          | ucore-v3           | org.technologybrewery.mash.LoggingMediator              |
+      | ddms-v1           | ddms-v2            | org.technologybrewery.mash.DoesNotExistMediator         |
+      | mixed-case-string | lower-case-string  | org.technologybrewery.mash.example.LowercaseMediator    |
+      | anything          | never-gonna-happen | org.technologybrewery.mash.example.ExceptionalMediator  |
 
   Scenario Outline: Load multiple mediation routines
     When mediation is configured for runtime
@@ -47,7 +47,7 @@ Feature: Configure and Execute Mediation
     Then a graceful exception case is returned
 
   Scenario: Configure mediation routine with properties
-    Given a mediator with "string", "string", and "org.bitbucket.cpointe.mash.example.PropertyAwareMediator"
+    Given a mediator with "string", "string", and "org.technologybrewery.mash.example.PropertyAwareMediator"
     And the following properties:
       | key       | value |
       | propertyA | foo   |

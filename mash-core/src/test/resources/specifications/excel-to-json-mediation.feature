@@ -4,10 +4,10 @@ Feature: Mediation -> Mediate XLSX to JSON
   Background: 
     Given the following mediation configurations:
       | inputType | outputType | className                                     |
-      | excel     | json       | org.bitbucket.cpointe.mash.XlsxToJsonMediator |
+      | excel     | json       | org.technologybrewery.mash.XlsxToJsonMediator |
 
   Scenario: Validate excel to json mediation for GenericObject
-    Given an Excel spreadsheet with the full filename "target/excelTestFiles/genericObject.xlsx" and a header of "org.bitbucket.cpointe.mash.objects.GenericObject"
+    Given an Excel spreadsheet with the full filename "target/excelTestFiles/genericObject.xlsx" and a header of "org.technologybrewery.mash.objects.GenericObject"
     And headers for fields "name" and "id"
     And the following data in a table
       | name    | id |

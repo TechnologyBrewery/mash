@@ -13,7 +13,7 @@ As previously mentioned, a key aspect to this approach is that mediators are not
 [{
 	"inputType": "xyz-json-v1",
 	"outputType": "abc-json-v5",
-	"className": "org.bitbucket.cpointe.mash.jolt.JoltMediator"
+	"className": "org.technologybrewery.mash.jolt.JoltMediator"
 	"properties":[
 		{
 			"key":"jolt-specification",
@@ -23,7 +23,7 @@ As previously mentioned, a key aspect to this approach is that mediators are not
 }, {
 	"inputType": "geopoint-json-v20",
 	"outputType": "esri-json-v3",
-	"className": "org.bitbucket.cpointe.mash.jolt.JoltMediator"
+	"className": "org.technologybrewery.mash.jolt.JoltMediator"
 	"properties":[
 		{
 			"key":"jolt-specification",
@@ -36,7 +36,7 @@ As previously mentioned, a key aspect to this approach is that mediators are not
 ```
 #!xml
 <dependency>
-    <groupId>org.bitbucket.cpointe.mash</groupId>
+    <groupId>org.technologybrewery.mash</groupId>
     <artifactId>mash-jolt</artifactId>
     <version>LATEST-MASH-VERSION</version>
 </dependency>

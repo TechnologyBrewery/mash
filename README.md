@@ -1,6 +1,6 @@
 # Mash Data Mediation #
 
-[![Maven Central](https://img.shields.io/maven-central/v/org.bitbucket.cpointe.mash/mash-parent.svg)](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.bitbucket.cpointe.mash%22%20AND%20a%3A%22mash-parent%22)
+[![Maven Central](https://img.shields.io/maven-central/v/org.technologybrewery.mash/mash-parent.svg)](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.technologybrewery.mash%22%20AND%20a%3A%22mash-parent%22)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/mit)
 
 In brewing, mashing passes raw ingredients through hot water to activate, hydrate, and convert them for fermentation. Mash, the open source project, takes raw data payloads and provides a generic mediation process to translate the payloads into a new output. This allows configuration-driven mediation to be plugged into your application, which is especially important when dealing with ad-hoc tweaks that need to occur to payloads to add, remove, or alter them to conform to changing service payloads to/from other systems.
@@ -48,15 +48,15 @@ As previously mentioned, a key aspect to this approach is that mediators are not
 [{
 	"inputType": "json",
 	"outputType": "xml",
-	"className": "org.bitbucket.cpointe.mash.example.StaticXmlMediator"
+	"className": "org.technologybrewery.mash.example.mash.StaticXmlMediator"
 }, {
 	"inputType": "json",
 	"outputType": "json",
-	"className": "org.bitbucket.cpointe.mash.LoggingMediator"
+	"className": "org.technologybrewery.mash.LoggingMediator"
 }, {
 	"inputType": "ucore-v2",
 	"outputType": "ucore-v3",
-	"className": "org.bitbucket.cpointe.mash.LoggingMediator"
+	"className": "org.technologybrewery.mash.LoggingMediator"
 }]
 ```
 
@@ -72,11 +72,11 @@ outputValue = mediator.mediate(inputValue);
 # Error Handling #
 All exceptions encountered at runtime will be caught and wrapped in a runtime exception called MediationExeption.
 
-If you have logging enabled at the debug level for org.bitbucket.cpointe.mash, you'll also get some potentially useful debugging info this component is bootstrapped:
+If you have logging enabled at the debug level for org.technologybrewery.mash, you'll also get some potentially useful debugging info this component is bootstrapped:
 ```
 #!bash
 26 Sep 2017 22:06:07 DEBUG MediationManager - Loading mediation configuration from ./target/mediation-definitions...
-26 Sep 2017 22:06:07  WARN MediationManager - The specified class org.bitbucket.cpointe.mash.DoesNotExistMediator was not found in the classpath!
+26 Sep 2017 22:06:07  WARN MediationManager - The specified class org.technologybrewery.mash.DoesNotExistMediator was not found in the classpath!
 26 Sep 2017 22:06:07 DEBUG MediationManager - Loaded mediation 5 configurations in 35ms
 ```
 
@@ -84,7 +84,7 @@ If you have logging enabled at the debug level for org.bitbucket.cpointe.mash, y
 ```
 #!xml
 <dependency>
-    <groupId>org.bitbucket.cpointe.mash</groupId>
+    <groupId>org.technologybrewery.mash</groupId>
     <artifactId>mash-core</artifactId>
     <version>LATEST-MASH-VERSION</version>
 </dependency>

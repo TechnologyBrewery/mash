@@ -2,9 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.bitbucket.cpointe.mash</groupId>
+    <parent>
+        <groupId>org.technologybrewery</groupId>
+        <artifactId>parent</artifactId>
+        <version>2</version>
+    </parent>
+
+    <groupId>org.technologybrewery.mash</groupId>
     <artifactId>mash-parent</artifactId>
-    <version>6-SNAPSHOT</version>
+    <version>1.6.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Mash Mediation Platform</name>
@@ -14,7 +20,7 @@
 	process to translate the payloads into a new output. This allows configuration-driven mediation to be plugged 
 	into your application, which is especially important when dealing with ad-hoc tweaks that need to occur to payloads
 	to add, remove, or alter them to conform to changing service payloads to/from other systems.</description>
-    <url>https://bitbucket.org/cpointe/mash</url>
+    <url>https://github.com/TechnologyBrewery/mash</url>
 
     <licenses>
         <license>
@@ -27,31 +33,24 @@
     <developers>
         <developer>
             <name>Ryan Ashcraft</name>
-            <email>ryan@cpointe-inc.com</email>
-            <organization>Counterpointe Solutions, Inc.</organization>
-            <organizationUrl>https://bitbucket.org/cpointe</organizationUrl>
+            <email>dryanashcraft@gmail.com</email>
+            <organization>Technology Brewery</organization>
+            <organizationUrl>https://technologybrewery.org</organizationUrl>
         </developer>
         <developer>
             <name>Eric Konieczny</name>
-            <email>ekonieczny@cpointe-inc.com</email>
-            <organization>Counterpointe Solutions, Inc.</organization>
-            <organizationUrl>https://bitbucket.org/cpointe</organizationUrl>
+            <email>ekoniec1@gmail.com</email>
+            <organization>Technology Brewery</organization>
+            <organizationUrl>https://technologybrewery.org</organizationUrl>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git@bitbucket.org:cpointe/mash.git</connection>
-        <developerConnection>scm:git:git@bitbucket.org:cpointe/mash.git</developerConnection>
-        <url>https://bitbucket.org/cpointe/mash.git</url>
+        <connection>scm:git:ssh://git@github.com/TechnologyBrewery/mash.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/TechnologyBrewery/mash.git</developerConnection>
+        <url>https://github.com/TechnologyBrewery/mash</url>
         <tag>HEAD</tag>
     </scm>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <modules>
         <module>mash-core</module>
@@ -62,10 +61,7 @@
     <properties>
         <cucumber.version>1.2.5</cucumber.version>
         <jackson.version>2.9.0</jackson.version>
-        <krausening.version>5</krausening.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <krausening.version>16</krausening.version>
         <log4j.version>2.19.0</log4j.version>
     </properties>
 
@@ -92,15 +88,15 @@
                 <version>3.6</version>
             </dependency>
             <dependency>
-                <groupId>org.bitbucket.askllc.krausening</groupId>
+                <groupId>org.technologybrewery.krausening</groupId>
                 <artifactId>krausening</artifactId>
-                <version>${krausening.version}</version>
+                <version>16</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>4.13.2</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -122,13 +118,7 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.7.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.20.1</version>
                     <configuration>
                         <systemPropertyVariables>
                             <KRAUSENING_BASE>${project.basedir}/src/test/resources/krausening/base</KRAUSENING_BASE>
@@ -139,13 +129,6 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -175,79 +158,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <releaseProfiles>ossrh-release</releaseProfiles>
-                    <goals>deploy</goals>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>ossrh-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.4</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.10.3</version>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

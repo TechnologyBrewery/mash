@@ -3,12 +3,12 @@ Feature: Configure and Execute Mediation - Jolt
   Background: 
     Given the following mediation configurations with properties:
       | inputType   | outputType    | className                                            | velocityTemplate            | inputValidationClassType                         |
-      | Foo.class   | foo-v1.xml    | org.bitbucket.cpointe.mash.velocity.VelocityMediator | templates/to-xml.vm         |                                                  |
-      | Foo.class   | foo-v1.json   | org.bitbucket.cpointe.mash.velocity.VelocityMediator | templates/to-json.vm        |                                                  |
-      | simple.json | will-fail     | org.bitbucket.cpointe.mash.velocity.VelocityMediator |                             |                                                  |
-      | simple.json | will-fail-too | org.bitbucket.cpointe.mash.velocity.VelocityMediator | templates/does-not-exist.vm |                                                  |
-      | Foo.class   | foo-v2.json   | org.bitbucket.cpointe.mash.velocity.VelocityMediator | templates/to-json.vm        | org.bitbucket.cpointe.mash.velocity.TestProperty |
-      | Bar.class   | foo-v3.json   | org.bitbucket.cpointe.mash.velocity.VelocityMediator | templates/to-json.vm        | java.lang.Boolean                                |
+      | Foo.class   | foo-v1.xml    | org.technologybrewery.mash.velocity.VelocityMediator | templates/to-xml.vm         |                                                  |
+      | Foo.class   | foo-v1.json   | org.technologybrewery.mash.velocity.VelocityMediator | templates/to-json.vm        |                                                  |
+      | simple.json | will-fail     | org.technologybrewery.mash.velocity.VelocityMediator |                             |                                                  |
+      | simple.json | will-fail-too | org.technologybrewery.mash.velocity.VelocityMediator | templates/does-not-exist.vm |                                                  |
+      | Foo.class   | foo-v2.json   | org.technologybrewery.mash.velocity.VelocityMediator | templates/to-json.vm        | org.technologybrewery.mash.velocity.TestProperty |
+      | Bar.class   | foo-v3.json   | org.technologybrewery.mash.velocity.VelocityMediator | templates/to-json.vm        | java.lang.Boolean                                |
 
   Scenario: null input is provided to the mediator
     When mediation is configured for runtime
